@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <title><ui:insert name="title">UNSORTED</ui:insert></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <ui:include src="navbar.xhtml"/>
+</h:head>
+
+<h:body>
+    <div id="content" class="m-5">
+        <ui:insert name="content">
+            <f:view>
+                <h1 class="text-center mb-2">DISPLAYING PACIENTS WITHOUT DOCTOR</h1>
+                <h:form>
+
+                    <h:dataTable value="#{app.getWithoutDoctor()}" var="pacient" class="table">
+                        <h:column>
+                            <f:facet name="header"> Name </f:facet>
+
+                            <h:outputText value="#{pacient.name}" rendered="#{!pacient.editable}"/>
+                            <h:inputText value="#{pacient.name}" rendered="#{pacient.editable}"/>
+
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"> Surname </f:facet>
+                            <h:outputText value="#{pacient.surname}" rendered="#{!pacient.editable}"/>
+                            <h:inputText value="#{pacient.surname}" rendered="#{pacient.editable}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"> Email </f:facet>
+                            <h:outputText value="#{pacient.email}" rendered="#{!pacient.editable}"/>
+                            <h:inputText value="#{pacient.email}" rendered="#{pacient.editable}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"> Pacient's date of birth </f:facet>
+                            <h:outputText value="#{pacient.dateOfBirth}" rendered="#{!pacient.editable}"/>
+                            <h:inputText type="date" value="#{pacient.dateOfBirth}" rendered="#{pacient.editable}">
+                                <f:convertDateTime pattern="yyyy-MM-dd"/>
+                            </h:inputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header"> Pacient Characteristic </f:facet>
+                            <h:outputText value="#{pacient.characteristics}" rendered="#{!pacient.editable}"/>
+                            <h:inputText value="#{pacient.characteristics}" rendered="#{pacient.editable}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header"> Pacient's doctor </f:facet>
+                            <div class="form-group">
+                                <h:selectOneMenu value="#{pacient.pickedDoctor}" converter="doctorConverter">
+                                    <f:selectItem itemLabel="-- Select Doctor --" itemValue=""/>
+                                    <f:selectItems value="#{app.getAllDoctors()}" var="doctor" itemValue="#{doctor}"
+                                                   itemLabel="#{doctor.name} #{doctor.surname} #{doctor.numberOfPatients}"/>
+                                    <f:ajax execute="@form" render="@form"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header"> Delete </f:facet>
+                            <h:commandButton styleClass="btn btn-danger" value="DELETE"
+                                             onclick="if(!confirm('Are you sure you want to delete this pacient?')){return false;}"
+                                             actionListener="#{app.deletePacient(pacient)}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"> Update </f:facet>
+                            <h:commandButton styleClass="btn btn-warning" value="UPDATE"
+                                             rendered="#{!pacient.editable}"
+                                             actionListener="#{app.enableEditingPacient(pacient)}"/>
+                            <h:commandButton styleClass="btn btn-warning" value="SAVE EDIT"
+                                             rendered="#{pacient.editable}"
+                                             actionListener="#{app.saveEditingPacient(pacient)}"/>
+
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"> Pick Doctor </f:facet>
+                            <h:commandButton styleClass="btn btn-info" value="PICK"
+                                             action="#{app.sendEmail(pacient.pickedDoctor,pacient)}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header"> Start Console app </f:facet>
+                            <h:commandButton styleClass="btn btn-info" value="PICK"
+                                             action="#{app.startConsoleApp}"/>
+                        </h:column>
+
+                    </h:dataTable>
+
+                </h:form>
+            </f:view>
+        </ui:insert>
+    </div>
+</h:body>
+
+</html>
+
+
