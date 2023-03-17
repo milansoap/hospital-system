@@ -3,20 +3,16 @@ package si.um.feri;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.mail.MessagingException;
-import si.um.feri.dao.DoctorDao;
-import si.um.feri.dao.DoctorDaoInterface;
-import si.um.feri.dao.PacientDao;
-import si.um.feri.dao.PacientDaoInterface;
-import si.um.feri.jee.sample.jsf.PickDoctorInterface;
+import si.um.feri.interfaces.DoctorDao;
+import si.um.feri.interfaces.PacientDao;
+import si.um.feri.interfaces.PickDoctor;
 import si.um.feri.vao.Doctor;
 import si.um.feri.vao.Pacient;
 
 import javax.naming.NamingException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,11 +22,11 @@ public class app implements Serializable {
 
 
     @EJB
-    DoctorDaoInterface doctorDao;
+    DoctorDao doctorDao;
     @EJB
-    PacientDaoInterface pacientDao;
+    PacientDao pacientDao;
     @EJB
-    PickDoctorInterface pickDoctor;
+    PickDoctor pickDoctor;
 
     private boolean showPatientForm = false;
     private boolean showDoctorForm = true;

@@ -1,27 +1,24 @@
 package si.um.feri.dao;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Local;
-import jakarta.ejb.PostActivate;
 import jakarta.ejb.Stateless;
-import jakarta.inject.Named;
-import si.um.feri.vao.Doctor;
+import si.um.feri.interfaces.DoctorDao;
+import si.um.feri.interfaces.PacientDao;
 import si.um.feri.vao.Pacient;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Stateless
-@Local(PacientDaoInterface.class)
-public class PacientDao implements PacientDaoInterface {
+@Local(PacientDao.class)
+public class PacientDaoBean implements PacientDao {
 
     private List<Pacient> pacients = new ArrayList<>();
     private List<Pacient> withoutDoctor = new ArrayList();
-    private static PacientDao instance;
+    private static PacientDaoBean instance;
 
     @EJB
-    DoctorDaoInterface doctorDao;
+    DoctorDao doctorDao;
 
 
 

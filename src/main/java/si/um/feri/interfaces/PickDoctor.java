@@ -1,4 +1,4 @@
-package si.um.feri.jee.sample.jsf;
+package si.um.feri.interfaces;
 
 import jakarta.ejb.Local;
 import jakarta.mail.MessagingException;
@@ -8,7 +8,7 @@ import si.um.feri.vao.Pacient;
 import javax.naming.NamingException;
 
 @Local
-public interface PickDoctorInterface {
+public interface PickDoctor {
 
 
     void sendEmail(Doctor d, Pacient p) throws NamingException, MessagingException;

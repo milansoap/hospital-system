@@ -1,4 +1,4 @@
-package si.um.feri.dao;
+package si.um.feri.interfaces;
 
 import jakarta.ejb.Local;
 import si.um.feri.vao.Doctor;
@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @Local
-public interface DoctorDaoInterface {
+public interface DoctorDao {
 
     List<Doctor> doctors = new ArrayList<>();
 

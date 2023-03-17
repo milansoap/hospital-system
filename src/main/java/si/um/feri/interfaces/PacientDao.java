@@ -1,4 +1,4 @@
-package si.um.feri.dao;
+package si.um.feri.interfaces;
 
 import jakarta.ejb.Local;
 import si.um.feri.vao.Pacient;
@@ -6,7 +6,7 @@ import si.um.feri.vao.Pacient;
 import java.util.List;
 
 @Local
-public interface PacientDaoInterface {
+public interface PacientDao {
 
     void addPacient(Pacient p);
     Pacient findPacient(String email);

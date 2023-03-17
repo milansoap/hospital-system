@@ -1,39 +1,30 @@
-package si.um.feri.jee.sample.jsf;
+package si.um.feri.functionalityBeans;
 
 import jakarta.ejb.EJB;
 import jakarta.ejb.Local;
 import jakarta.ejb.Stateless;
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Named;
 import jakarta.mail.*;
-import si.um.feri.dao.DoctorDaoInterface;
-import si.um.feri.dao.PacientDaoInterface;
+import si.um.feri.interfaces.DoctorDao;
+import si.um.feri.interfaces.PacientDao;
+import si.um.feri.interfaces.PickDoctor;
 import si.um.feri.vao.Doctor;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.util.Properties;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import si.um.feri.vao.Pacient;
-
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 
 @Stateless
-@Local(PickDoctorInterface.class)
-public class PickDoctor implements Serializable, PickDoctorInterface {
+@Local(PickDoctor.class)
+public class PickDoctorBean implements Serializable, PickDoctor {
 
     @EJB
-    DoctorDaoInterface doctorDao;
-    @EJB PacientDaoInterface pacientDao;
+    DoctorDao doctorDao;
+    @EJB
+    PacientDao pacientDao;
 
     @Override
     public void sendEmail(Doctor d, Pacient p) throws NamingException, MessagingException {
@@ -88,6 +79,8 @@ public class PickDoctor implements Serializable, PickDoctorInterface {
             System.out.print("Enter patient name: ");
             String patientName = scanner.nextLine();
             System.out.println(patientName);
+            scanner.close();
+
 //
 //            System.out.print("Enter patient email: ");
 //            while (!scanner.hasNextLine()) { // wait for input

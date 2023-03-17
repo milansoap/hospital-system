@@ -1,28 +1,22 @@
 package si.um.feri.dao;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Local;
 import jakarta.ejb.Stateless;
+import si.um.feri.interfaces.DoctorDao;
 import si.um.feri.vao.Doctor;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Stateless
-@Local(DoctorDaoInterface.class)
-public class DoctorDao implements DoctorDaoInterface {
+@Local(DoctorDao.class)
+public class DoctorDaoBean implements DoctorDao {
 
     private List<Doctor> doctors = new ArrayList<>();
-
-
 
     @Override
     public void addDoctor(Doctor d) {
         doctors.add(d);
     }
-
 
     @Override
     public Doctor findDoctor (String email) {
