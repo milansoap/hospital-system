@@ -1,6 +1,8 @@
 package si.um.feri.vao;
 
-public class Doctor {
+import java.io.Serializable;
+
+public class Doctor implements Serializable {
 
     private String name;
     private String surname;

@@ -1,9 +1,10 @@
 package si.um.feri.vao;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class Pacient {
+public class Pacient implements Serializable {
 
     private String name;
     private String surname;

@@ -5,9 +5,10 @@ import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import jakarta.mail.MessagingException;
+import si.um.feri.facade.EmailFacade;
 import si.um.feri.interfaces.DoctorDao;
 import si.um.feri.interfaces.PacientDao;
-import si.um.feri.interfaces.PickDoctor;
+import si.um.feri.interfaces.EmailSender;
 import si.um.feri.vao.Doctor;
 import si.um.feri.vao.Pacient;
 
@@ -26,7 +27,7 @@ public class app implements Serializable {
     @EJB
     PacientDao pacientDao;
     @EJB
-    PickDoctor pickDoctor;
+    EmailSender pickDoctor;
 
     private boolean showPatientForm = false;
     private boolean showDoctorForm = true;

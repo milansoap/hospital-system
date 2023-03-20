@@ -2,14 +2,19 @@ package si.um.feri.functionalityBeans;
 
 import jakarta.ejb.EJB;
 import jakarta.ejb.Local;
+import jakarta.ejb.Remote;
 import jakarta.ejb.Stateless;
 import jakarta.mail.*;
 import si.um.feri.interfaces.DoctorDao;
 import si.um.feri.interfaces.PacientDao;
-import si.um.feri.interfaces.PickDoctor;
+import si.um.feri.interfaces.EmailSender;
 import si.um.feri.vao.Doctor;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.util.Scanner;
+
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import si.um.feri.vao.Pacient;
@@ -18,13 +23,9 @@ import javax.naming.NamingException;
 
 
 @Stateless
-@Local(PickDoctor.class)
-public class PickDoctorBean implements Serializable, PickDoctor {
+@Remote
+public class EmailSenderBean implements Serializable, EmailSender {
 
-    @EJB
-    DoctorDao doctorDao;
-    @EJB
-    PacientDao pacientDao;
 
     @Override
     public void sendEmail(Doctor d, Pacient p) throws NamingException, MessagingException {
@@ -75,11 +76,19 @@ public class PickDoctorBean implements Serializable, PickDoctor {
 //    }
         // Method to read input from the console and call the sendEmail method
         public void consoleApp() {
-            Scanner scanner = new Scanner(System.in);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.print("Enter patient name: ");
-            String patientName = scanner.nextLine();
-            System.out.println(patientName);
-            scanner.close();
+
+            try {
+
+
+                    String patientName = reader.readLine();
+                    System.out.println(patientName);
+
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
 //
 //            System.out.print("Enter patient email: ");
