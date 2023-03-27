@@ -13,7 +13,9 @@ public interface EmailSender {
 
 
     void sendEmail(Doctor d, Pacient p) throws NamingException, MessagingException;
-    void consoleApp();
+
+    void sendEmail(Doctor d, Pacient p, String contentEmailMessage) throws NamingException, MessagingException;
+
 
 
 }

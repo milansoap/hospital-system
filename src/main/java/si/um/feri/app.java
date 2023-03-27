@@ -9,6 +9,9 @@ import si.um.feri.facade.EmailFacade;
 import si.um.feri.interfaces.DoctorDao;
 import si.um.feri.interfaces.PacientDao;
 import si.um.feri.interfaces.EmailSender;
+import si.um.feri.observers.pacientObservables.PacientObservable;
+import si.um.feri.observers.pacientObservables.concreteObservers.EmailAssigmentObserver;
+import si.um.feri.observers.pacientObservables.concreteObservers.EmailRemovalObserver;
 import si.um.feri.vao.Doctor;
 import si.um.feri.vao.Pacient;
 
@@ -63,6 +66,7 @@ public class app implements Serializable {
         pacientDao.addPacient(new Pacient("Frank", "Franklin", "frankfranklin@example.com", new Date(), "None", null));
 
         this.pacients = pacientDao.getPacients();
+
 
     }
 
@@ -189,10 +193,9 @@ public class app implements Serializable {
         pickDoctor.sendEmail(pickedDoctor,p);
     }
 
-    public void startConsoleApp() {
-        pickDoctor.consoleApp();
+    public void sendEmail(Doctor pickedDoctor, Pacient p, String message) throws MessagingException, NamingException {
+        pickDoctor.sendEmail(pickedDoctor,p,message);
     }
-
 
 
 

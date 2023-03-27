@@ -11,6 +11,8 @@ import si.um.feri.vao.Pacient;
 import javax.naming.NamingException;
 import java.io.Serializable;
 
+
+@Stateless
 public class EmailFacade implements Serializable {
 
     @EJB
@@ -23,5 +25,18 @@ public class EmailFacade implements Serializable {
             // Handle exception
         }
     }
+
+    public void sendEmail(Doctor d, Pacient p, String message) {
+        try {
+            emailSender.sendEmail(d, p,message);
+        } catch (NamingException | MessagingException e) {
+            // Handle exception
+        }
+    }
+
+    public void test() {
+        System.out.println("BITENG");
+    }
+
 }
 

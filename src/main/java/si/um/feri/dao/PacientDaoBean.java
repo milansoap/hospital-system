@@ -22,43 +22,6 @@ public class PacientDaoBean implements PacientDao {
 
 
 
-//    @PostConstruct
-//    private void initPacients() {
-//        Doctor doctor1 = doctorDao.findDoctor("johndoe@example.com");
-//        Doctor doctor2 = doctorDao.findDoctor("janedoe@example.com");
-//        Doctor doctor3 = doctorDao.findDoctor("bobsmith@example.com");
-//        Doctor doctor4 = doctorDao.findDoctor("alicejones@example.com");
-//        Doctor doctor5 = doctorDao.findDoctor("tomwilson@example.com");
-//
-//        addPacient(new Pacient("Alice", "Adams", "aliceadams@example.com", new Date(), "High blood pressure", doctor1));
-//        // ...
-//    }
-
-
-
-//        Doctor doctor1 = new Doctor("John", "Doe", "johndoe@example.com");
-//        Doctor doctor2 = new Doctor("Jane", "Doe", "janedoe@example.com");
-//        Doctor doctor3 = new Doctor("Bob", "Smith", "bobsmith@example.com");
-//        Doctor doctor4 = new Doctor("Alice", "Jones", "alicejones@example.com");
-//        Doctor doctor5 = new Doctor("Tom", "Wilson", "tomwilson@example.com");
-//
-//        doctorDao.addDoctor(doctor1);
-//        doctorDao.addDoctor(doctor2);
-//        doctorDao.addDoctor(doctor3);
-//        doctorDao.addDoctor(doctor4);
-//        doctorDao.addDoctor(doctor5);
-//
-//        addPacient(new Pacient("Alice", "Adams", "aliceadams@example.com", new Date(), "High blood pressure", doctor1));
-//        addPacient(new Pacient("Bob", "Baker", "bobbaker@example.com", new Date(), "Asthma", doctor2));
-//        addPacient(new Pacient("Charlie", "Clark", "charlieclark@example.com", new Date(), "Diabetes", doctor3));
-//
-//        // Create 3 Pacients without Doctor
-//        addPacient(new Pacient("Milan", "Djuric", "milan.seid123@gmail.com", new Date(), "Najjaci lik ikad tebradzouns", null));
-//        addPacient(new Pacient("Dave", "Davis", "davedavis@example.com", new Date(), "None", null));
-//        addPacient(new Pacient("Eve", "Evans", "eveevans@example.com", new Date(), "None", null));
-//        addPacient(new Pacient("Frank", "Franklin", "frankfranklin@example.com", new Date(), "None", null));
-
-
 //    public static synchronized PacientDao getInstance() {
 //        if (instance == null) {
 //            instance = new PacientDao();

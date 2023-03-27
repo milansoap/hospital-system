@@ -193,13 +193,14 @@
 
                         </h:column>
 
-
                         <h:column>
-                            <f:facet name="header"> Delete </f:facet>
-                            <h:commandButton styleClass="btn btn-danger" value="DELETE"
-                                             onclick="if(!confirm('Are you sure you want to delete this pacient?')){return false;}"
-                                             actionListener="#{app.deletePacient(pacient)}"/>
+                            <f:facet name="header"> Remove Doctor </f:facet>
+                            <h:commandButton styleClass="btn btn-danger" value="Remove Doctor"
+                                             onclick="if(!confirm('Are you sure you want to remove doctor from this pacient?')){return false;}"
+                                             actionListener="#{pacient.setDoctor(null)}"/>
                         </h:column>
+
+
                         <h:column>
                             <f:facet name="header"> Update </f:facet>
                             <h:commandButton styleClass="btn btn-warning" value="UPDATE"
@@ -208,6 +209,13 @@
                             <h:commandButton styleClass="btn btn-warning" value="SAVE EDIT"
                                              rendered="#{pacient.editable}"
                                              actionListener="#{app.saveEditingPacient(pacient)}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header"> Delete </f:facet>
+                            <h:commandButton styleClass="btn btn-danger" value="DELETE"
+                                             onclick="if(!confirm('Are you sure you want to delete this pacient?')){return false;}"
+                                             actionListener="#{app.deletePacient(pacient)}"/>
                         </h:column>
 
 

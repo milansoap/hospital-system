@@ -5,6 +5,7 @@ import jakarta.ejb.Local;
 import jakarta.ejb.Remote;
 import jakarta.ejb.Stateless;
 import jakarta.mail.*;
+import si.um.feri.facade.EmailFacade;
 import si.um.feri.interfaces.DoctorDao;
 import si.um.feri.interfaces.PacientDao;
 import si.um.feri.interfaces.EmailSender;
@@ -42,7 +43,6 @@ public class EmailSenderBean implements Serializable, EmailSender {
                     + d.getName() + d.getSurname()
                     + "because he already has an maximum number of patientes. \n Best Regards from Sveti Vracevi", "text/plain");
             Transport.send(message);
-
         } else if (d.getNumberOfPatients() < d.getMaxNumberOfPatients()) {
             System.out.print(" ovde sam " + d.getNumberOfPatients() + "<=" + d.getMaxNumberOfPatients());
             message.setContent("Dear " + p.getName() + "\n We are glad to inform you that you sucessfully picked Doctor "
@@ -54,76 +54,28 @@ public class EmailSenderBean implements Serializable, EmailSender {
 
     }
 
-//    public void consoleApp() {
-//
-//        Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
-//        System.out.println("Enter patient email:");
-//        String patientEmail = scanner.nextLine();
-//
-//        System.out.println("Enter doctor email:");
-//        String doctorEmail = scanner.nextLine();
-//
-//        Pacient p = pacientDao.findPacient(patientEmail);
-//        Doctor d = doctorDao.findDoctor(doctorEmail);
-//
-//        if (d == null) {
-//            System.out.println("We cannot find a doctor with that email");
-//        }
-//        else {
-//            System.out.println("We found your doctor" + d);
-//        }
-//
-//    }
-        // Method to read input from the console and call the sendEmail method
-        public void consoleApp() {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            System.out.print("Enter patient name: ");
 
-            try {
+    @Override
+    public void sendEmail(Doctor d, Pacient p, String contentEmailMessage) throws NamingException, MessagingException {
+
+        InitialContext ctx = new InitialContext();
+        Session session = (Session) ctx.lookup("java:jboss/mail/UMMail");
+        Message message = new MimeMessage(session);
+        InternetAddress toAdress = new InternetAddress(p.getEmail());
+        message.addRecipient(Message.RecipientType.TO, toAdress);
+        message.setSubject("Doctor Pick Info");
+        message.setContent(contentEmailMessage, "text/plain");
+        Transport.send(message);
 
 
-                    String patientName = reader.readLine();
-                    System.out.println(patientName);
 
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-//
-//            System.out.print("Enter patient email: ");
-//            while (!scanner.hasNextLine()) { // wait for input
-//            }
-//            String patientEmail = scanner.nextLine();
-//
-//            System.out.print("Enter doctor name: ");
-//            while (!scanner.hasNextLine()) { // wait for input
-//            }
-//            String doctorName = scanner.nextLine();
-//
-//            System.out.print("Enter doctor surname: ");
-//            while (!scanner.hasNextLine()) { // wait for input
-//            }
-//            String doctorSurname = scanner.nextLine();
-//
-//            Doctor doctor = new Doctor();
-//            doctor.setName(doctorName);
-//            doctor.setSurname(doctorSurname);
-//
-//            Pacient pacient = new Pacient();
-//            pacient.setName(patientName);
-//            pacient.setEmail(patientEmail);
-//
-//            try {
-//                sendEmail(doctor, pacient);
-//                System.out.println("Email sent successfully!");
-//            } catch (NamingException | MessagingException e) {
-//                System.err.println("Error sending email: " + e.getMessage());
-//            } finally {
-//                scanner.close();
-//            }
-         }
     }
+
+
+
+
+
+}
 
 
 

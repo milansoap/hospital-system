@@ -3,6 +3,7 @@ package si.um.feri.vao;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import si.um.feri.observers.pacientObservables.PacientObservable;
 
 public class Pacient implements Serializable {
 
@@ -15,6 +16,7 @@ public class Pacient implements Serializable {
     private boolean editable;
     private Doctor pickedDoctor;
 
+    private PacientObservable observable = new PacientObservable();
 
     public Pacient(String name, String surname, String email, Date dateOfBirth, String characteristics, Doctor doctor) {
         this.name = name;
@@ -75,7 +77,18 @@ public class Pacient implements Serializable {
     }
 
     public void setDoctor(Doctor doctor) {
+//        System.out.println(doctor);
         this.doctor = doctor;
+//        if (doctor == null) {
+//            this.doctor = doctor;
+//            observable.notifyObservers(this,"removal");
+//
+//        }
+//        else if (doctor != null) {
+//            this.doctor = doctor;
+//            observable.notifyObservers(this,"assignment");
+//        }
+
     }
 
     public boolean isEditable() {
