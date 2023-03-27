@@ -1,17 +1,11 @@
 package si.um.feri.observers.pacientObservables.concreteObservers;
 
 import jakarta.ejb.EJB;
-import jakarta.ejb.Singleton;
-import jakarta.ejb.Stateful;
 import jakarta.ejb.Stateless;
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Inject;
 import jakarta.mail.MessagingException;
-import si.um.feri.app;
-import si.um.feri.facade.EmailFacade;
 import si.um.feri.interfaces.EmailSender;
+import si.um.feri.mailSender.MailSender;
 import si.um.feri.observers.IObserver;
-import si.um.feri.observers.pacientObservables.PacientObservable;
 import si.um.feri.vao.Doctor;
 import si.um.feri.vao.Pacient;
 
@@ -21,13 +15,12 @@ import java.io.Serializable;
 
 public class EmailAssigmentObserver implements IObserver, Serializable {
 
-    PacientObservable pacientObservable;
-    @EJB
-    EmailSender emailSender;
+    Pacient pacient;
+    private MailSender emailSender = new MailSender();
 
-    public EmailAssigmentObserver(PacientObservable pacientObservable) {
-        this.pacientObservable = pacientObservable;
-        pacientObservable.add(this);
+    public EmailAssigmentObserver(Pacient p) {
+        this.pacient = p;
+        this.pacient.add(this);
     }
 
 
