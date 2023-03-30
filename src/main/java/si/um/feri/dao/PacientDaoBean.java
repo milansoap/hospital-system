@@ -3,24 +3,30 @@ package si.um.feri.dao;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Local;
 import jakarta.ejb.Stateless;
+import jakarta.mail.MessagingException;
 import si.um.feri.interfaces.DoctorDao;
 import si.um.feri.interfaces.PacientDao;
+import si.um.feri.interfaces.SetDoctor;
+import si.um.feri.observers.IObservable;
+import si.um.feri.observers.IObserver;
+import si.um.feri.vao.Doctor;
 import si.um.feri.vao.Pacient;
+
+import javax.naming.NamingException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-@Local(PacientDao.class)
-public class PacientDaoBean implements PacientDao {
+public class PacientDaoBean implements PacientDao, SetDoctor {
 
+
+    private List<IObserver> observers = new ArrayList<>();
     private List<Pacient> pacients = new ArrayList<>();
     private List<Pacient> withoutDoctor = new ArrayList();
     private static PacientDaoBean instance;
 
     @EJB
     DoctorDao doctorDao;
-
-
 
 //    public static synchronized PacientDao getInstance() {
 //        if (instance == null) {
@@ -78,5 +84,20 @@ public class PacientDaoBean implements PacientDao {
         p.setEditable(false);
     }
 
+
+    @Override
+    public void addDoctorToPatient(String emailP, String emailD) throws MessagingException, NamingException {
+        if (pacients == null) {
+            System.out.println("PLEASE INITIALIZE DATA LOAD THE PAGE");
+        }
+        else {
+            Doctor d = doctorDao.findDoctor(emailD);
+            Pacient p = findPacient(emailP);
+            p.setDoctor(d);
+            // we can send here by sendEmail or just notify observers
+            p.notifyObservers();
+        }
+
+    }
 
 }

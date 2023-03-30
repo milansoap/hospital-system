@@ -1,19 +1,11 @@
-package si.um.feri.functionalityBeans;
+package si.um.feri.functionalityBeansEJB;
 
-import jakarta.ejb.EJB;
-import jakarta.ejb.Local;
 import jakarta.ejb.Remote;
 import jakarta.ejb.Stateless;
 import jakarta.mail.*;
-import si.um.feri.facade.EmailFacade;
-import si.um.feri.interfaces.DoctorDao;
-import si.um.feri.interfaces.PacientDao;
 import si.um.feri.interfaces.EmailSender;
 import si.um.feri.vao.Doctor;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 
 import jakarta.mail.internet.InternetAddress;
@@ -55,21 +47,21 @@ public class EmailSenderBean implements Serializable, EmailSender {
     }
 
 
-    @Override
-    public void sendEmail(Doctor d, Pacient p, String contentEmailMessage) throws NamingException, MessagingException {
-
-        InitialContext ctx = new InitialContext();
-        Session session = (Session) ctx.lookup("java:jboss/mail/UMMail");
-        Message message = new MimeMessage(session);
-        InternetAddress toAdress = new InternetAddress(p.getEmail());
-        message.addRecipient(Message.RecipientType.TO, toAdress);
-        message.setSubject("Doctor Pick Info");
-        message.setContent(contentEmailMessage, "text/plain");
-        Transport.send(message);
-
-
-
-    }
+//    @Override
+//    public void sendEmail(Doctor d, Pacient p, String contentEmailMessage) throws NamingException, MessagingException {
+//
+//        InitialContext ctx = new InitialContext();
+//        Session session = (Session) ctx.lookup("java:jboss/mail/UMMail");
+//        Message message = new MimeMessage(session);
+//        InternetAddress toAdress = new InternetAddress(p.getEmail());
+//        message.addRecipient(Message.RecipientType.TO, toAdress);
+//        message.setSubject("Doctor Pick Info");
+//        message.setContent(contentEmailMessage, "text/plain");
+//        Transport.send(message);
+//
+//
+//
+//    }
 
 
 

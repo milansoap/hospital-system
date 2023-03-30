@@ -197,7 +197,7 @@
                             <f:facet name="header"> Remove Doctor </f:facet>
                             <h:commandButton styleClass="btn btn-danger" value="Remove Doctor"
                                              onclick="if(!confirm('Are you sure you want to remove doctor from this pacient?')){return false;}"
-                                             actionListener="#{pacient.setDoctor(null)}"/>
+                                             actionListener="#{app.setDoctor(pacient, pacient.doctor)}"/>
                         </h:column>
 
 

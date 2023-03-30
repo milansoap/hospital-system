@@ -5,37 +5,23 @@ import jakarta.ejb.Remote;
 import jakarta.ejb.Stateless;
 import jakarta.mail.MessagingException;
 import si.um.feri.interfaces.EmailSender;
+import si.um.feri.mailSender.MailSender;
 import si.um.feri.vao.Doctor;
 import si.um.feri.vao.Pacient;
 
 import javax.naming.NamingException;
 import java.io.Serializable;
 
-
-@Stateless
 public class EmailFacade implements Serializable {
 
-    @EJB
-    EmailSender emailSender;
+    private MailSender emailSender = new MailSender();
 
-    public void sendDoctorPickInfo(Doctor d, Pacient p) {
+    public void sendEmail(Pacient p, String message) {
         try {
-            emailSender.sendEmail(d, p);
+            emailSender.sendEmail(p,message);
         } catch (NamingException | MessagingException e) {
             // Handle exception
         }
-    }
-
-    public void sendEmail(Doctor d, Pacient p, String message) {
-        try {
-            emailSender.sendEmail(d, p,message);
-        } catch (NamingException | MessagingException e) {
-            // Handle exception
-        }
-    }
-
-    public void test() {
-        System.out.println("BITENG");
     }
 
 }

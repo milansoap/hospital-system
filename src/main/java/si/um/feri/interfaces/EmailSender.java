@@ -10,12 +10,5 @@ import javax.naming.NamingException;
 
 @Remote
 public interface EmailSender {
-
-
     void sendEmail(Doctor d, Pacient p) throws NamingException, MessagingException;
-
-    void sendEmail(Doctor d, Pacient p, String contentEmailMessage) throws NamingException, MessagingException;
-
-
-
 }

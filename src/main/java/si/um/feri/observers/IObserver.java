@@ -6,6 +6,5 @@ import si.um.feri.vao.Pacient;
 import javax.naming.NamingException;
 
 public interface IObserver {
-    void update();
-    void update(Pacient p, String eventType);
+    void update() throws MessagingException, NamingException;
 }

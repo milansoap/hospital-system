@@ -19,7 +19,7 @@ public class DoctorDaoBean implements DoctorDao {
     }
 
     @Override
-    public Doctor findDoctor (String email) {
+    public Doctor findDoctor(String email) {
         for (Doctor d : doctors) {
             if (d.getEmail().equals(email)) {
                 return d;
@@ -54,7 +54,5 @@ public class DoctorDaoBean implements DoctorDao {
     public void incrementNumberOfPacients(Doctor doctor) {
         doctor.setNumberOfPatients(doctor.getNumberOfPatients()+1);
     }
-
-
 
 }

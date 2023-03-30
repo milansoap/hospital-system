@@ -89,7 +89,7 @@
                         <h:column>
                             <f:facet name="header"> ADD DOCTOR</f:facet>
                             <h:commandButton styleClass="btn btn-success" value="PICK"
-                                             action="#{pacient.setDoctor(pacient.pickedDoctor)}"/>
+                                             action="#{app.setDoctor(pacient,pacient.pickedDoctor)}"/>
                         </h:column>
 
                     </h:dataTable>

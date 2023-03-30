@@ -1,12 +1,22 @@
 package si.um.feri.vao;
 
+import jakarta.mail.MessagingException;
+import si.um.feri.observers.IObservable;
+import si.um.feri.observers.IObserver;
+import si.um.feri.observers.pacientObservables.concreteObservers.DoctorAssigmentObserver;
+import si.um.feri.observers.pacientObservables.concreteObservers.DoctorChangeObserver;
+
+import javax.naming.NamingException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
-import si.um.feri.observers.pacientObservables.PacientObservable;
+import java.util.List;
 
-public class Pacient implements Serializable {
 
+public class Pacient implements Serializable, IObservable {
+
+    private List<IObserver> observers = new ArrayList<>();
     private String name;
     private String surname;
     private String email;
@@ -16,7 +26,24 @@ public class Pacient implements Serializable {
     private boolean editable;
     private Doctor pickedDoctor;
 
-    private PacientObservable observable = new PacientObservable();
+
+    @Override
+    public void add(IObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void remove(IObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() throws MessagingException, NamingException {
+        for(IObserver observer : this.observers) {
+            observer.update();
+        }
+    }
+
 
     public Pacient(String name, String surname, String email, Date dateOfBirth, String characteristics, Doctor doctor) {
         this.name = name;
@@ -26,6 +53,8 @@ public class Pacient implements Serializable {
         this.characteristics = characteristics;
         this.doctor = doctor;
         this.editable = false;
+        new DoctorAssigmentObserver(this);
+        new DoctorChangeObserver(this);
     }
 
     public Pacient() {
@@ -77,8 +106,8 @@ public class Pacient implements Serializable {
     }
 
     public void setDoctor(Doctor doctor) {
-//        System.out.println(doctor);
         this.doctor = doctor;
+//        System.out.println(doctor);
 //        if (doctor == null) {
 //            this.doctor = doctor;
 //            observable.notifyObservers(this,"removal");

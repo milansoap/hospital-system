@@ -11,7 +11,6 @@ import java.util.List;
 public interface DoctorDao {
 
     List<Doctor> doctors = new ArrayList<>();
-
     void addDoctor(Doctor d);
     Doctor findDoctor (String email);
     void deleteDoctor (Doctor d);

@@ -5,13 +5,9 @@ import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import jakarta.mail.MessagingException;
-import si.um.feri.facade.EmailFacade;
 import si.um.feri.interfaces.DoctorDao;
 import si.um.feri.interfaces.PacientDao;
-import si.um.feri.interfaces.EmailSender;
-import si.um.feri.observers.pacientObservables.PacientObservable;
-import si.um.feri.observers.pacientObservables.concreteObservers.EmailAssigmentObserver;
-import si.um.feri.observers.pacientObservables.concreteObservers.EmailRemovalObserver;
+import si.um.feri.mailSender.MailSender;
 import si.um.feri.vao.Doctor;
 import si.um.feri.vao.Pacient;
 
@@ -29,8 +25,8 @@ public class app implements Serializable {
     DoctorDao doctorDao;
     @EJB
     PacientDao pacientDao;
-    @EJB
-    EmailSender pickDoctor;
+    private MailSender emailSender = new MailSender();
+
 
     private boolean showPatientForm = false;
     private boolean showDoctorForm = true;
@@ -189,13 +185,20 @@ public class app implements Serializable {
     }
 
 
-    public void sendEmail(Doctor pickedDoctor, Pacient p) throws MessagingException, NamingException {
-        pickDoctor.sendEmail(pickedDoctor,p);
+//    public void sendEmail(Doctor pickedDoctor, Pacient p) throws MessagingException, NamingException {
+//        pickDoctor.sendEmail(pickedDoctor,p);
+//        // klicemo iz ejba @EJB pickDOctor EmailSender
+//    }
+
+    public void sendEmail(Pacient p, String message) throws MessagingException, NamingException {
+        emailSender.sendEmail(p,message);
     }
 
-    public void sendEmail(Doctor pickedDoctor, Pacient p, String message) throws MessagingException, NamingException {
-        pickDoctor.sendEmail(pickedDoctor,p,message);
+    public void setDoctor(Pacient pacient,Doctor doctor) throws MessagingException, NamingException {
+        pacient.setDoctor(doctor);
+        pacient.notifyObservers();
     }
+
 
 
 
