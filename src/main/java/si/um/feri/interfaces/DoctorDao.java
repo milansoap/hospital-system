@@ -11,7 +11,7 @@ import java.util.List;
 @Local
 public interface DoctorDao {
     Doctor addDoctor(Doctor d);
-    Doctor findDoctor (String email);
+    Doctor findDoctor (int id);
     int deleteDoctor(int entityId);
     List<Doctor> getAllDoctors();
     Doctor updateDoctor(Doctor d);

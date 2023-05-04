@@ -32,6 +32,17 @@ public class app implements Serializable {
     private Doctor selectedDoctor;
     private Pacient insertedPacient = new Pacient();
     private Doctor insertedDoctor = new Doctor();
+    private Doctor editedDoctor = new Doctor();
+
+    public Doctor getEditedDoctor() {
+        return editedDoctor;
+    }
+
+    public void setEditedDoctor(int id) {
+        System.out.println("ovde sam doktor je " + editedDoctor);
+        this.editedDoctor = doctorSql.findDoctor(id);
+        System.out.println("ovde sam doktor je " + editedDoctor);
+    }
     List<Pacient> pacients;
 
     public boolean isShowPatientForm() {
@@ -123,7 +134,6 @@ public class app implements Serializable {
     }
 
     public void saveEditing(Doctor d) {
-        d.setEditable(false);
         doctorSql.updateDoctor(d);
     }
 

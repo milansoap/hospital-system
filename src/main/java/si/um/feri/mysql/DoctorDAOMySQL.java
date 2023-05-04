@@ -21,8 +21,8 @@ public class DoctorDAOMySQL implements DoctorDao {
     }
 
     @Override
-    public Doctor findDoctor(String email) {
-        return entityManager.find(Doctor.class, email);
+    public Doctor findDoctor(int id) {
+        return entityManager.find(Doctor.class, id);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class DoctorDAOMySQL implements DoctorDao {
 
     @Override
     public Doctor updateDoctor(Doctor doctor) {
-        System.out.println(doctor);
+        System.out.println("NEW EDITED DOCTOR" + doctor + doctor.getId());
         Doctor foundDoctor = entityManager.find(Doctor.class, doctor.getId());
         foundDoctor.setName(doctor.getName());
         foundDoctor.setSurname(doctor.getSurname());
@@ -59,6 +59,7 @@ public class DoctorDAOMySQL implements DoctorDao {
 
         entityManager.merge(foundDoctor);
         return doctor;
+
     }
 
     @Override

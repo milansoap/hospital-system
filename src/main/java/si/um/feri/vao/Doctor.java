@@ -42,10 +42,6 @@ public class Doctor implements Serializable {
     public Doctor() {
     }
 
-    public Doctor(String test) {
-        this.name = test;
-    }
-
     public String getName() {
         return name;
     }
