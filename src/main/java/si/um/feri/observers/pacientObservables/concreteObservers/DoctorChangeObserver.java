@@ -17,17 +17,17 @@ public class DoctorChangeObserver implements IObserver, Serializable {
     private Doctor oldDoctor = null;
     private EmailFacade emailSender = new EmailFacade();
 
-    public DoctorChangeObserver(Pacient pacient) {
-        this.pacient = pacient;
-
-        try {
-            oldDoctor = pacient.getDoctor();
-        }
-        catch (Exception e) {
-
-        }
-        pacient.add(this);
-    }
+//    public DoctorChangeObserver(Pacient pacient) {
+//        this.pacient = pacient;
+//
+//        try {
+//            oldDoctor = pacient.getDoctor();
+//        }
+//        catch (Exception e) {
+//
+//        }
+//        pacient.add(this);
+//    }
     @Override
     public void update() {
         System.out.println("brate");
@@ -41,25 +41,6 @@ public class DoctorChangeObserver implements IObserver, Serializable {
         }
     }
 
-//    @Override
-//    public void update(Pacient pacient, String eventType)  {
-//        System.out.println("U REMOVALU SAM VAN IFa");
-//        if (eventType.equals("removal")) {
-//            System.out.println("U REMOVALU SAM UNUTAR OBSERVERA");
-//            Doctor removedDoctor = pacient.getDoctor();
-//            String message = "Hello " + pacient.getName() + ",\n\n"
-//                    + "Your doctor has been removed. Your previous doctor was " + removedDoctor.getName() + " " + removedDoctor.getSurname() + ".\n\n"
-//                    + "Best regards,\n"
-//                    + "The Medical Team";
-//                emailSender.sendEmail(removedDoctor,pacient,message);
-//
-//        }
-//
-//
-//
-//
-//
-//    }
 
 
 }

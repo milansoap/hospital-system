@@ -13,14 +13,13 @@ import org.omnifaces.converter.SelectItemsConverter;
 
 import si.um.feri.interfaces.DoctorDao;
 import si.um.feri.vao.Doctor;
+import si.um.feri.mysql.DoctorDAOMySQL;
 
 
 @FacesConverter(value = "doctorConverter")
-@ApplicationScoped
 public class DoctorConverter extends SelectItemsConverter {
 
-    @EJB
-    DoctorDao doctorDao;
+
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String email) {
@@ -29,7 +28,8 @@ public class DoctorConverter extends SelectItemsConverter {
         }
 
         try {
-            return doctorDao.findDoctor(email);
+//            return doctorDao.findDoctor(email);
+            return null;
         } catch (Exception e) {
             throw new ConverterException(new FacesMessage(String.format("Cannot convert %s to Doctor", email)), e);
         }

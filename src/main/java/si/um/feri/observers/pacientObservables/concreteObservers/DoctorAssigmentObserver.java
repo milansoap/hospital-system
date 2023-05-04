@@ -17,7 +17,7 @@ public class DoctorAssigmentObserver implements IObserver, Serializable {
 
     public DoctorAssigmentObserver(Pacient pacient) {
         this.pacient = pacient;
-        this.pacient.add(this);
+//        this.pacient.add(this);
     }
 
     @Override

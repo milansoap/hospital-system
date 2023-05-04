@@ -7,18 +7,16 @@ import si.um.feri.vao.Doctor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Stateless
-@Local(DoctorDao.class)
-public class DoctorDaoBean implements DoctorDao {
+public class DoctorDaoBean {
+
 
     private List<Doctor> doctors = new ArrayList<>();
 
-    @Override
-    public void addDoctor(Doctor d) {
+    public Doctor addDoctor(Doctor d) {
         doctors.add(d);
+        return d;
     }
 
-    @Override
     public Doctor findDoctor(String email) {
         for (Doctor d : doctors) {
             if (d.getEmail().equals(email)) {
@@ -28,18 +26,15 @@ public class DoctorDaoBean implements DoctorDao {
         return null;
     }
 
-    @Override
-    public void deleteDoctor (Doctor d) {
-        doctors.remove(d);
+    public int deleteDoctor(int entityId) {
+        return 0;
     }
 
-    @Override
     public List<Doctor> getAllDoctors() {
         return doctors;
     }
 
-    @Override
-    public void updateDoctor(Doctor d) {
+    public Doctor updateDoctor(Doctor d) {
         for (int i = 0; i < doctors.size(); i++) {
             Doctor doctor = doctors.get(i);
             if (doctor.getEmail().equals(d.getEmail())) {
@@ -48,9 +43,9 @@ public class DoctorDaoBean implements DoctorDao {
             }
         }
         d.setEditable(false);
+        return d;
     }
 
-    @Override
     public void incrementNumberOfPacients(Doctor doctor) {
         doctor.setNumberOfPatients(doctor.getNumberOfPatients()+1);
     }

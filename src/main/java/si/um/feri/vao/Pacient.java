@@ -1,48 +1,46 @@
 package si.um.feri.vao;
 
 import jakarta.mail.MessagingException;
+import jakarta.persistence.*;
 import si.um.feri.observers.IObservable;
-import si.um.feri.observers.IObserver;
+import si.um.feri.observers.entities.PacientChangeObserver;
 import si.um.feri.observers.pacientObservables.concreteObservers.DoctorAssigmentObserver;
 import si.um.feri.observers.pacientObservables.concreteObservers.DoctorChangeObserver;
 
 import javax.naming.NamingException;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
-public class Pacient implements Serializable, IObservable {
+@Entity
+@Table(name = "pacients")
+public class Pacient implements Serializable {
 
-    private List<IObserver> observers = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
+    @Column(name = "name")
+
     private String name;
+    @Column(name = "surname")
     private String surname;
+    @Column(name = "email")
     private String email;
+    @Column(name = "date_of_birth")
+
     private Date dateOfBirth;
+    @Column(name = "characteristics")
     private String characteristics;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
     private boolean editable;
-    private Doctor pickedDoctor;
-
-
-    @Override
-    public void add(IObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void remove(IObserver observer) {
-        observers.remove(observer);
-    }
-
-    @Override
-    public void notifyObservers() throws MessagingException, NamingException {
-        for(IObserver observer : this.observers) {
-            observer.update();
-        }
-    }
+//    private Doctor pickedDoctor;
+    //    @Transient
+//    transient public PacientChangeObserver observerEntity;
+//    @Transient
+//    transient private DoctorChangeObserver patientObserver;
 
 
     public Pacient(String name, String surname, String email, Date dateOfBirth, String characteristics, Doctor doctor) {
@@ -53,8 +51,10 @@ public class Pacient implements Serializable, IObservable {
         this.characteristics = characteristics;
         this.doctor = doctor;
         this.editable = false;
+//        this.observerEntity = new PacientChangeObserver();
+//        this.patientObserver = new DoctorChangeObserver(this.patientObserver)
         new DoctorAssigmentObserver(this);
-        new DoctorChangeObserver(this);
+//        new DoctorChangeObserver(this);
     }
 
     public Pacient() {
@@ -105,19 +105,9 @@ public class Pacient implements Serializable, IObservable {
         return doctor;
     }
 
-    public void setDoctor(Doctor doctor) {
+    public void setDoctor(Doctor doctor) throws MessagingException, NamingException {
         this.doctor = doctor;
-//        System.out.println(doctor);
-//        if (doctor == null) {
-//            this.doctor = doctor;
-//            observable.notifyObservers(this,"removal");
-//
-//        }
-//        else if (doctor != null) {
-//            this.doctor = doctor;
-//            observable.notifyObservers(this,"assignment");
-//        }
-
+//        notifyObservers();
     }
 
     public boolean isEditable() {
@@ -128,12 +118,16 @@ public class Pacient implements Serializable, IObservable {
         this.editable = editable;
     }
 
-    public Doctor getPickedDoctor() {
-        return pickedDoctor;
-    }
+//    public Doctor getPickedDoctor() {
+//        return pickedDoctor;
+//    }
+//
+//    public void setPickedDoctor(Doctor pickedDoctor) {
+//        this.pickedDoctor = pickedDoctor;
+//    }
 
-    public void setPickedDoctor(Doctor pickedDoctor) {
-        this.pickedDoctor = pickedDoctor;
+    public int getId() {
+        return id;
     }
 
     @Override

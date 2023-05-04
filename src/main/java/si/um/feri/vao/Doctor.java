@@ -1,14 +1,33 @@
 package si.um.feri.vao;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 
+@Entity
+@Table(name = "doctors")
 public class Doctor implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "surname")
     private String surname;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "number_of_pacients")
     private int numberOfPatients;
+
+    @Column(name = "max_number_of_pacients")
     private int maxNumberOfPatients;
+    @Column(name = "editable")
     private boolean editable;
 
     public Doctor(String name, String surname, String email) {
@@ -71,6 +90,14 @@ public class Doctor implements Serializable {
     }
     public void setEditable(boolean editable) {
         this.editable = editable;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

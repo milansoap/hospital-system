@@ -82,8 +82,9 @@
                             <f:facet name="header"> Delete </f:facet>
                             <h:commandButton styleClass="btn btn-danger" value="DELETE"
                                              onclick="if(!confirm('Are you sure you want to delete this doctor?')){return false;}"
-                                             actionListener="#{app.deleteDoctor(doctor)}"/>
+                                             actionListener="#{app.deleteDoctor(doctor.id)}"/>
                         </h:column>
+
                         <h:column>
                             <f:facet name="header"> Update </f:facet>
                             <h:commandButton styleClass="btn btn-warning" value="UPDATE"
@@ -147,7 +148,7 @@
                     </div>
 
 
-                    <h:commandButton class="btn btn-primary" value="Add pacient" actionListener="#{app.addPacient()}"/>
+                    <h:commandButton class="btn btn-primary" value="Add pacient" actionListener="#{app.addPacient(doctor)}"/>
                     <h:commandButton class="btn btn-primary" value="Switch mode" actionListener="#{app.switchMode}"/>
 
                 </h:form>
