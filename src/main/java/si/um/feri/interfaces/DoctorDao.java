@@ -15,5 +15,5 @@ public interface DoctorDao {
     int deleteDoctor(int entityId);
     List<Doctor> getAllDoctors();
     Doctor updateDoctor(Doctor d);
-    void incrementNumberOfPacients(Doctor doctor);
+    Doctor findDoctorByEmail(String email);
 }

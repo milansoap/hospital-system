@@ -27,15 +27,12 @@ public class Doctor implements Serializable {
 
     @Column(name = "max_number_of_pacients")
     private int maxNumberOfPatients;
-    @Column(name = "editable")
-    private boolean editable;
 
     public Doctor(String name, String surname, String email) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.numberOfPatients = 0;
-        this.editable = false;
         this.maxNumberOfPatients = 1;
     }
 
@@ -79,13 +76,6 @@ public class Doctor implements Serializable {
 
     public void setMaxNumberOfPatients(int maxNumberOfPatients) {
         this.maxNumberOfPatients = maxNumberOfPatients;
-    }
-
-    public boolean isEditable() {
-        return editable;
-    }
-    public void setEditable(boolean editable) {
-        this.editable = editable;
     }
 
     public int getId() {

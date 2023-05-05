@@ -12,11 +12,7 @@ public class DoctorDAOMySQL implements DoctorDao {
 
     @Override
     public Doctor addDoctor(Doctor d) {
-        try {
-            entityManager.persist(d);
-        } catch (Exception e) {
-            System.out.println("doctor saved with email " + d.getEmail());
-        }
+        entityManager.merge(d);
         return d;
     }
 
@@ -33,7 +29,6 @@ public class DoctorDAOMySQL implements DoctorDao {
             Query query = entityManager.createQuery("UPDATE Pacient p SET p.doctor = null WHERE p.doctor = :doctor");
             query.setParameter("doctor", found);
             query.executeUpdate();
-
             entityManager.remove(found);
             return found.getId();
         }
@@ -49,13 +44,11 @@ public class DoctorDAOMySQL implements DoctorDao {
 
     @Override
     public Doctor updateDoctor(Doctor doctor) {
-        System.out.println("NEW EDITED DOCTOR" + doctor + doctor.getId());
         Doctor foundDoctor = entityManager.find(Doctor.class, doctor.getId());
         foundDoctor.setName(doctor.getName());
         foundDoctor.setSurname(doctor.getSurname());
         foundDoctor.setMaxNumberOfPatients(doctor.getMaxNumberOfPatients());
         foundDoctor.setNumberOfPatients(doctor.getNumberOfPatients());
-        foundDoctor.setEditable(doctor.isEditable());
 
         entityManager.merge(foundDoctor);
         return doctor;
@@ -63,8 +56,11 @@ public class DoctorDAOMySQL implements DoctorDao {
     }
 
     @Override
-    public void incrementNumberOfPacients(Doctor doctor) {
-        // Implement the method if needed
+    public Doctor findDoctorByEmail(String email) {
+        TypedQuery<Doctor> query = entityManager.createQuery("SELECT d FROM Doctor d WHERE d.email = :email", Doctor.class);
+        query.setParameter("email", email);
+        return query.getSingleResult();
     }
+
 
 }

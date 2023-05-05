@@ -20,29 +20,34 @@ import si.um.feri.mysql.DoctorDAOMySQL;
 public class DoctorConverter extends SelectItemsConverter {
 
 
+    @EJB
+    DoctorDao doctorSql;
 
-    @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String email) {
-        if (email == null || email.isEmpty()) {
-            return null;
+        @Override
+        public Object getAsObject(FacesContext context, UIComponent component, String email) {
+
+            if (email == null || email.trim().isEmpty()) {
+                return null;
+            }
+            System.out.println("Converter getAsObject called with value: " + email);
+            try {
+                System.out.println(doctorSql.findDoctorByEmail(email));
+                return doctorSql.findDoctorByEmail(email);
+            } catch (Exception e) {
+                throw new ConverterException(new FacesMessage(String.format("Cannot convert %s to Doctor", email)), e);
+            }
         }
 
-        try {
-//            return doctorDao.findDoctor(email);
-            return null;
-        } catch (Exception e) {
-            throw new ConverterException(new FacesMessage(String.format("Cannot convert %s to Doctor", email)), e);
+        @Override
+        public String getAsString(FacesContext context, UIComponent component, Object value) {
+            System.out.println("Converter getAsString called with value: " + value);
+
+            if (value == null || !(value instanceof Doctor)) {
+                return null;
+            }
+            Doctor doctor = (Doctor) value;
+            return doctor.getEmail();
         }
+
+
     }
-
-    @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value == null || !(value instanceof Doctor)) {
-            return null;
-        }
-        Doctor doctor = (Doctor) value;
-        return doctor.getEmail();
-    }
-
-
-}

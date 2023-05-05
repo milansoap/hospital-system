@@ -42,7 +42,6 @@ public class DoctorDaoBean {
                 break;
             }
         }
-        d.setEditable(false);
         return d;
     }
 

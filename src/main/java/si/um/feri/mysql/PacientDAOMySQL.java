@@ -1,9 +1,7 @@
 package si.um.feri.mysql;
 
-import jakarta.ejb.Local;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.*;
-import si.um.feri.interfaces.DoctorDao;
 import si.um.feri.interfaces.PacientDao;
 import si.um.feri.vao.Doctor;
 import si.um.feri.vao.Pacient;
@@ -18,11 +16,8 @@ public class PacientDAOMySQL implements PacientDao {
     EntityManager entityManager;
 
     @Override
-    public Pacient addPacient(Pacient p, Doctor d) {
-        entityManager.getTransaction().begin();
-//        p.setDoctorId(d.getId()); //
-        entityManager.persist(p); // Persist the Pacient object
-        entityManager.getTransaction().commit();
+    public Pacient addPacient(Pacient p) {
+        entityManager.merge(p);
         return p;
     }
 
@@ -44,50 +39,22 @@ public class PacientDAOMySQL implements PacientDao {
     }
 
     @Override
-    public void setPacients(List<Pacient> pacients) {
-
-    }
-
-    @Override
-    public void deletePacient(Pacient p) {
-
-    }
-
-    @Override
-    public void deletePacient(int entityId) {
+    public int deletePacient(int entityId) {
         Pacient found = entityManager.find(Pacient.class, entityId);
-        if (found == null) {
-            return;
-        }
-        try {
-            entityManager.getTransaction().begin();
+        if (found != null) {
             entityManager.remove(found);
-            entityManager.getTransaction().commit();
-            return;
-        } catch (Exception e) {
-            return;
+            return found.getId();
         }
+        return -1;
     }
 
     @Override
-    public Pacient updatePacient(Pacient entity) {
-        Pacient found = entityManager.find(Pacient.class, entity.getId());
-        if (found == null) {
-            return null;
-        }
-        try {
-            found.setName(entity.getName());
-            found.setSurname(entity.getSurname());
-            found.setCharacteristics(entity.getCharacteristics());
-            found.setDateOfBirth(entity.getDateOfBirth());
-            found.setEmail(entity.getEmail());
-            found.setDoctor(entity.getDoctor());
-            entityManager.getTransaction().begin();
-            entityManager.merge(found);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            return null;
-        }
-        return entity;
+    public Pacient updatePacient(Pacient pacient) {
+        Pacient foundPacient = entityManager.find(Pacient.class, pacient.getId());
+        foundPacient.setName(pacient.getName());
+        foundPacient.setSurname(pacient.getSurname());
+        foundPacient.setCharacteristics(pacient.getCharacteristics());
+        entityManager.merge(foundPacient);
+        return pacient;
     }
 }

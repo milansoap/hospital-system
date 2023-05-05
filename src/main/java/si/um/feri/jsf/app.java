@@ -29,7 +29,7 @@ public class app implements Serializable {
     PacientDao pacientSql;
     private boolean showPatientForm = false;
     private boolean showDoctorForm = true;
-    private Doctor selectedDoctor;
+    private Doctor selectedDoctor = new Doctor();
     private Pacient insertedPacient = new Pacient();
     private Doctor insertedDoctor = new Doctor();
     private Doctor editedDoctor = new Doctor();
@@ -62,7 +62,8 @@ public class app implements Serializable {
     }
 
     public void addPacient(Doctor d) {
-        pacientSql.addPacient(insertedPacient, d);
+        pacientSql.addPacient(insertedPacient);
+        System.out.println("selektovani doktor je " + d);
         insertedPacient = new Pacient();
     }
 
@@ -72,8 +73,6 @@ public class app implements Serializable {
 
     public void addDoctor() {
         doctorSql.addDoctor(insertedDoctor);
-        insertedDoctor = new Doctor();
-        System.out.println(doctorSql.getAllDoctors());
     }
 
     public List<Doctor> getAllDoctors() {
@@ -123,22 +122,12 @@ public class app implements Serializable {
     public void deleteDoctor(int id) {
         doctorSql.deleteDoctor(id);
     }
-
-    public void deletePacient(Pacient p) {
-        doctorSql.deleteDoctor(p.getId());
-    }
-
-    public void enableEditing(Doctor doctor) {
-        doctor.setEditable(true);
-        doctorSql.updateDoctor(doctor); // update the doctor in the database
+    public void deletePacient(int id) {
+        pacientSql.deletePacient(id);
     }
 
     public void saveEditing(Doctor d) {
         doctorSql.updateDoctor(d);
-    }
-
-    public void enableEditingPacient(Pacient p) {
-        p.setEditable(true);
     }
 
     public void saveEditingPacient(Pacient p) {
@@ -157,9 +146,14 @@ public class app implements Serializable {
     }
 
     public void updateSelectedDoctor() throws MessagingException, NamingException {
+        System.out.println("alooooooooooooooooooo");
         System.out.println("Selected doctor is now " + this.selectedDoctor);
         insertedPacient.setDoctor(this.selectedDoctor);
     }
+    public void testUpdate() {
+        System.out.println("Listener called");
+    }
+
 
 
 //    public void sendEmail(Doctor pickedDoctor, Pacient p) throws MessagingException, NamingException {
