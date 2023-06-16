@@ -6,12 +6,16 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import jakarta.mail.MessagingException;
 import si.um.feri.interfaces.DoctorDao;
+import si.um.feri.interfaces.IVisitDao;
 import si.um.feri.interfaces.PacientDao;
 import si.um.feri.mailSender.MailSender;
 import si.um.feri.mysql.DoctorDAOMySQL;
 import si.um.feri.mysql.PacientDAOMySQL;
+import si.um.feri.mysql.VisitsDAOMySQL;
+import si.um.feri.strategy.NotificationStrategyContext;
 import si.um.feri.vao.Doctor;
 import si.um.feri.vao.Pacient;
+import si.um.feri.vao.Visit;
 
 import javax.naming.NamingException;
 import java.io.Serializable;
@@ -27,12 +31,15 @@ public class app implements Serializable {
     DoctorDao doctorSql;
     @EJB
     PacientDao pacientSql;
+    @EJB
+    IVisitDao visitSql;
     private boolean showPatientForm = false;
     private boolean showDoctorForm = true;
     private Doctor selectedDoctor = new Doctor();
     private Pacient insertedPacient = new Pacient();
     private Doctor insertedDoctor = new Doctor();
     private Doctor editedDoctor = new Doctor();
+    private Visit visit = new Visit();
 
     public Doctor getEditedDoctor() {
         return editedDoctor;
@@ -170,9 +177,33 @@ public class app implements Serializable {
 //        pacient.notifyObservers();
     }
 
+    public void createVisit() {
+
+
+        System.out.println("bro let me see my visit" + visit.toString());
+        visitSql.addVisit(visit);
+
+        // Notify patient according to the strategy pattern
+        NotificationStrategyContext notificationContext;
+        try {
+            notificationContext = new NotificationStrategyContext(visit);
+            notificationContext.handleNotification();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Reset the form
+        visit = new Visit();
+    }
 
 
 
+    public Visit getVisit() {
+        return visit;
+    }
 
+    public void setVisit(Visit visit) {
+        this.visit = visit;
+    }
 }
 

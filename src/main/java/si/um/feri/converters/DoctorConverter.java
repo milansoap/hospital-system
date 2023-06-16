@@ -26,6 +26,8 @@ public class DoctorConverter extends SelectItemsConverter {
         @Override
         public Object getAsObject(FacesContext context, UIComponent component, String email) {
 
+            System.out.println("email je tu" + email);
+
             if (email == null || email.trim().isEmpty()) {
                 return null;
             }
@@ -46,6 +48,7 @@ public class DoctorConverter extends SelectItemsConverter {
                 return null;
             }
             Doctor doctor = (Doctor) value;
+            System.out.println("doktor email" + doctor.getEmail());
             return doctor.getEmail();
         }
 

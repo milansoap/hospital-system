@@ -15,11 +15,17 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 
-@Stateless
-@Remote
+
 public class EmailSenderBean implements Serializable, EmailSender {
 
+    public static EmailSenderBean instance;
 
+    public static synchronized EmailSenderBean getInstance() {
+        if (instance == null) {
+            instance = new EmailSenderBean();
+        }
+        return instance;
+    }
     @Override
     public void sendEmail(Doctor d, Pacient p) throws NamingException, MessagingException {
 
@@ -44,6 +50,30 @@ public class EmailSenderBean implements Serializable, EmailSender {
         }
 
 
+    }
+
+    @Override
+    public void sendNotificationEmail(String content, String email) throws Exception {
+        InitialContext ctx = new InitialContext();
+        Session session = (Session) ctx.lookup("java:jboss/mail/UMMail");
+        Message message = new MimeMessage(session);
+        InternetAddress toAdress = new InternetAddress(email);
+        message.addRecipient(Message.RecipientType.TO, toAdress);
+        message.setSubject("Notification email for content");
+        message.setContent("Dear pacient your content is " + content, "text/plain");
+        Transport.send(message);
+    }
+
+    @Override
+    public void sendNoteEmail(String notes, String email) throws Exception {
+        InitialContext ctx = new InitialContext();
+        Session session = (Session) ctx.lookup("java:jboss/mail/UMMail");
+        Message message = new MimeMessage(session);
+        InternetAddress toAdress = new InternetAddress(email);
+        message.addRecipient(Message.RecipientType.TO, toAdress);
+        message.setSubject("Notification email for content");
+        message.setContent("Dear pacient your notes are " + notes, "text/plain");
+        Transport.send(message);
     }
 
 

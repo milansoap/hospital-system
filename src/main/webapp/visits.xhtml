@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <title><ui:insert name="title">UNSORTED</ui:insert></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <ui:include src="navbar.xhtml"/>
+</h:head>
+<body>
+
+<div class="container">
+    <h1>Visit Form</h1>
+
+    <h:form>
+
+        <div class="form-group">
+            <label for="pacientM">Pacient:</label>
+            <h:selectOneMenu id="pacientM" value="#{app.visit.pacientEmail}">
+                <h:message for="pacientM" />
+                <f:selectItem itemLabel="-- Select Pacient --" itemValue=""/>
+                <f:selectItems value="#{app.getAllPacients()}" var="pacient"
+                               itemValue="#{pacient.email}" itemLabel="#{pacient.name} #{pacient.surname}"/>
+            </h:selectOneMenu>
+        </div>
+
+
+        <div class="form-group">
+            <label for="doctorM">Doctor:</label>
+            <h:selectOneMenu id="doctorM" value="#{app.visit.doctorEmail}">
+                <h:message for="doctorM" />
+                <f:selectItem itemLabel="-- Select Doctor --" itemValue=""/>
+                <f:selectItems value="#{app.getAllDoctors()}" var="doctor" itemValue="#{doctor.email}"
+                               itemLabel="#{doctor.name} #{doctor.surname} #{doctor.numberOfPatients}"/>
+            </h:selectOneMenu>
+
+        </div>
+
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <h:inputText id="date" value="#{app.visit.date}" required="true" styleClass="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="notes">Notes:</label>
+            <h:inputTextarea id="notes" value="#{app.visit.notes}" styleClass="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="medications">Medications:</label>
+            <h:inputTextarea id="medications" value="#{app.visit.medications}" styleClass="form-control" />
+        </div>
+
+        <h:commandButton value="Submit" styleClass="btn btn-primary" action="#{app.createVisit}" />
+    </h:form>
+
+</div>
+
+<!-- Add Bootstrap JS (optional) -->
+</body>
+</html>

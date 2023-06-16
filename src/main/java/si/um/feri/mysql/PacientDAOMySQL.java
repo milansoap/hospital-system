@@ -57,4 +57,11 @@ public class PacientDAOMySQL implements PacientDao {
         entityManager.merge(foundPacient);
         return pacient;
     }
+
+    @Override
+    public Pacient findPacientByEmail(String email) {
+        TypedQuery<Pacient> query = entityManager.createQuery("SELECT p FROM Pacient p WHERE p.email = :email", Pacient.class);
+        query.setParameter("email", email);
+        return query.getSingleResult();
+    }
 }

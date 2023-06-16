@@ -14,5 +14,6 @@ public interface PacientDao {
     List<Pacient> getPacients();
     int deletePacient(int entityId);
     Pacient updatePacient(Pacient p);
+    Pacient findPacientByEmail(String email);
 
 }

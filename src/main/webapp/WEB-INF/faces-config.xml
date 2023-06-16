@@ -12,5 +12,10 @@
         <converter-class>si.um.feri.converters.DoctorConverter</converter-class>
     </converter>
 
+    <converter>
+        <converter-id>pacientConverter</converter-id>
+        <converter-class>si.um.feri.converters.PacientConverter</converter-class>
+    </converter>
+
 
 </faces-config>
