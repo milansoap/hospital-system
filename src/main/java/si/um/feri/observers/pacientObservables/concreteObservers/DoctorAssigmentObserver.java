@@ -24,7 +24,7 @@ public class DoctorAssigmentObserver implements IObserver, Serializable {
     public void update() throws MessagingException, NamingException {
 
         String message = "Hello " + pacient.getName() + ",\n\n"
-                    + "Your chosen doctor" + pacient.getDoctor().getName() + " " + pacient.getDoctor().getSurname() + ".\n\n"
+                    + "Your chosen doctor" + pacient.getDoctorEmail()
                     + "Best regards,\n"
                     + "The Medical Team";
 

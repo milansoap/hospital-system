@@ -177,20 +177,22 @@
                     </div>
 
 
-                    <div class="form-group">
 
-                        <h:selectOneMenu value="#{app.selectedDoctor}" converter="doctorConverter">
+                    <div class="form-group">
+                        <label for="doctorM">Doctor:</label>
+                        <h:selectOneMenu value="#{app.insertedPacient.doctorEmail}">
+                            <h:message id="doctorM" for="doctorM" />
                             <f:selectItem itemLabel="-- Select Doctor --" itemValue=""/>
-                            <f:selectItems value="#{app.getAllDoctors()}" var="doctor" itemValue="#{doctor}"
+                            <f:selectItems value="#{app.getAllDoctors()}" var="doctor" itemValue="#{doctor.email}"
                                            itemLabel="#{doctor.name} #{doctor.surname}"/>
-                            <f:ajax execute="@form" listener="#{app.testUpdate}" />
                         </h:selectOneMenu>
 
 
                     </div>
 
 
-                    <h:commandButton class="btn btn-primary" value="Add pacient" actionListener="#{app.addPacient(selectedDoctor)}"/>
+
+                    <h:commandButton class="btn btn-primary" value="Add pacient" actionListener="#{app.addPacient}"/>
                     <h:commandButton class="btn btn-primary" value="Switch mode" actionListener="#{app.switchMode}"/>
 
                 </h:form>
@@ -202,30 +204,30 @@
                         <h:column>
                             <f:facet name="header"> Name </f:facet>
 
-                            <h:outputText value="#{pacient.name}" rendered="#{!pacient.editable}"/>
+                            <h:outputText value="#{pacient.name}"/>
 
                         </h:column>
                         <h:column>
                             <f:facet name="header"> Surname </f:facet>
-                            <h:outputText value="#{pacient.surname}" rendered="#{!pacient.editable}"/>
+                            <h:outputText value="#{pacient.surname}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header"> Email </f:facet>
-                            <h:outputText value="#{pacient.email}" rendered="#{!pacient.editable}"/>
+                            <h:outputText value="#{pacient.email}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header"> Pacient's date of birth </f:facet>
-                            <h:outputText value="#{pacient.dateOfBirth}" rendered="#{!pacient.editable}"/>
+                            <h:outputText value="#{pacient.dateOfBirth}"/>
                         </h:column>
 
                         <h:column>
                             <f:facet name="header"> Pacient Characteristic </f:facet>
-                            <h:outputText value="#{pacient.characteristics}" rendered="#{!pacient.editable}"/>
+                            <h:outputText value="#{pacient.characteristics}"/>
                         </h:column>
 
                         <h:column>
                             <f:facet name="header"> Pacient's doctor </f:facet>
-                            #{pacient.doctor.name} #{pacient.doctor.surname}
+                            #{pacient.doctorEmail}
 
                         </h:column>
 
@@ -233,17 +235,16 @@
                             <f:facet name="header"> Remove Doctor </f:facet>
                             <h:commandButton styleClass="btn btn-danger" value="Remove Doctor"
                                              onclick="if(!confirm('Are you sure you want to remove doctor from this pacient?')){return false;}"
-                                             actionListener="#{app.setDoctor(pacient, pacient.doctor)}"/>
+                                             actionListener="#{app.setDoctor(pacient, pacient.doctorEmail)}"/>
                         </h:column>
 
 
                         <h:column>
                             <f:facet name="header"> Update </f:facet>
                             <h:commandButton styleClass="btn btn-warning" value="UPDATE"
-                                             rendered="#{!pacient.editable}"
                                              actionListener="#{app.enableEditingPacient(pacient)}"/>
                             <h:commandButton styleClass="btn btn-warning" value="SAVE EDIT"
-                                             rendered="#{pacient.editable}"
+
                                              actionListener="#{app.saveEditingPacient(pacient)}"/>
                         </h:column>
 

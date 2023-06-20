@@ -30,9 +30,7 @@ public class Main {
         EmailSender mailer = (EmailSender) ctx.lookup("java:app/osebeMemoryDao/EmailSenderBean!si.um.feri.interfaces.EmailSender");
 
         Doctor doctor1 = new Doctor("John", "Doe", "johndoe@example.com");
-        Pacient pacient1 =new Pacient("Milan", "Djuric", "milan.seid123@gmail.com", new Date(), "Najjaci lik ikad tebradzouns", null);
 
-        mailer.sendEmail(doctor1,pacient1);
 
     }
 }

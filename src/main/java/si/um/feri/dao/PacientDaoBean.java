@@ -32,7 +32,7 @@ public class PacientDaoBean implements SetDoctor {
 
     public Pacient addPacient(Pacient p) {
         pacients.add(p);
-        if (p.getDoctor() != null) {
+        if (p.getDoctorEmail() != null) {
 //            doctorDao.incrementNumberOfPacients(p.getDoctor());
         }
         return p;
@@ -58,7 +58,7 @@ public class PacientDaoBean implements SetDoctor {
     public List<Pacient> pacientsWithoutDoctor() {
         withoutDoctor.clear();
        for (Pacient p: pacients) {
-           if (p.getDoctor() == null) {
+           if (p.getDoctorEmail() == null) {
                withoutDoctor.add(p);
            }
        }

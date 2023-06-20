@@ -59,7 +59,7 @@ public class EmailSenderBean implements Serializable, EmailSender {
         Message message = new MimeMessage(session);
         InternetAddress toAdress = new InternetAddress(email);
         message.addRecipient(Message.RecipientType.TO, toAdress);
-        message.setSubject("Notification email for content");
+        message.setSubject("MEDICATIONS STRATEGY");
         message.setContent("Dear pacient your content is " + content, "text/plain");
         Transport.send(message);
     }
@@ -71,7 +71,7 @@ public class EmailSenderBean implements Serializable, EmailSender {
         Message message = new MimeMessage(session);
         InternetAddress toAdress = new InternetAddress(email);
         message.addRecipient(Message.RecipientType.TO, toAdress);
-        message.setSubject("Notification email for content");
+        message.setSubject("NOTES STRATEGY");
         message.setContent("Dear pacient your notes are " + notes, "text/plain");
         Transport.send(message);
     }

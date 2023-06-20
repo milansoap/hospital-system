@@ -68,9 +68,9 @@ public class app implements Serializable {
         this.showDoctorForm = showDoctorForm;
     }
 
-    public void addPacient(Doctor d) {
+    public void addPacient() {
         pacientSql.addPacient(insertedPacient);
-        System.out.println("selektovani doktor je " + d);
+        System.out.println("selektovani doktor je " + insertedPacient.getDoctorEmail());
         insertedPacient = new Pacient();
     }
 
@@ -155,7 +155,7 @@ public class app implements Serializable {
     public void updateSelectedDoctor() throws MessagingException, NamingException {
         System.out.println("alooooooooooooooooooo");
         System.out.println("Selected doctor is now " + this.selectedDoctor);
-        insertedPacient.setDoctor(this.selectedDoctor);
+        insertedPacient.setDoctorEmail(this.selectedDoctor.getEmail());
     }
     public void testUpdate() {
         System.out.println("Listener called");
@@ -172,8 +172,8 @@ public class app implements Serializable {
         emailSender.sendEmail(p,message);
     }
 
-    public void setDoctor(Pacient pacient,Doctor doctor) throws MessagingException, NamingException {
-        pacient.setDoctor(doctor);
+    public void setDoctor(Pacient pacient,String doctorEmail) throws MessagingException, NamingException {
+        pacient.setDoctorEmail(doctorEmail);
 //        pacient.notifyObservers();
     }
 

@@ -32,10 +32,9 @@ public class Pacient implements Serializable {
     private Date dateOfBirth;
     @Column(name = "characteristics")
     private String characteristics;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
-    private boolean editable;
+    @Column(name = "doctor_email")
+    private String doctorEmail;
+
 //    private Doctor pickedDoctor;
     //    @Transient
 //    transient public PacientChangeObserver observerEntity;
@@ -43,19 +42,19 @@ public class Pacient implements Serializable {
 //    transient private DoctorChangeObserver patientObserver;
 
 
-    public Pacient(String name, String surname, String email, Date dateOfBirth, String characteristics, Doctor doctor) {
+    public Pacient(String name, String surname, String email, Date dateOfBirth, String characteristics, String doctorEmail, boolean editable) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.characteristics = characteristics;
-        this.doctor = doctor;
-        this.editable = false;
+        this.doctorEmail = doctorEmail;
 //        this.observerEntity = new PacientChangeObserver();
 //        this.patientObserver = new DoctorChangeObserver(this.patientObserver)
         new DoctorAssigmentObserver(this);
 //        new DoctorChangeObserver(this);
     }
+
 
     public Pacient() {
 
@@ -101,22 +100,18 @@ public class Pacient implements Serializable {
         this.characteristics = characteristics;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public String getDoctorEmail() {
+        return doctorEmail;
     }
 
-    public void setDoctor(Doctor doctor) throws MessagingException, NamingException {
-        this.doctor = doctor;
-//        notifyObservers();
+    public void setDoctorEmail(String doctorEmail) {
+        this.doctorEmail = doctorEmail;
     }
 
-    public boolean isEditable() {
-        return editable;
-    }
+    public void setId(int id) {
+        this.id = id;
+    };
 
-    public void setEditable(boolean editable) {
-        this.editable = editable;
-    }
 
 //    public Doctor getPickedDoctor() {
 //        return pickedDoctor;
@@ -138,8 +133,6 @@ public class Pacient implements Serializable {
                 ", email='" + email + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", characteristics='" + characteristics + '\'' +
-                ", doctor=" + doctor +
-                ", editable=" + editable +
                 '}';
     }
 }
